@@ -15,6 +15,11 @@ namespace Graphz
 
         public void AddEdge(Edge edge)
         {
+
+            if (edge.A == edge.B)
+            {
+                throw new InvalidOperationException("");
+            }
             List<Vertex> a;
             if (!_graph.TryGetValue(edge.A , out a ))
             {
@@ -52,6 +57,19 @@ namespace Graphz
         }
 
         public int VertexCount()
+        {
+            var allOriginVertexi = _graph.Keys;
+            var allDestnationVertexi = _graph.SelectMany(ss => ss.Value.Select(m => m));
+            var distinctVertexi = allDestnationVertexi.Union(allOriginVertexi);
+            return distinctVertexi.Count();
+        }
+
+        public void AddTwoEdge(Edge edge)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Vertex> GetEdgesForVertex(Vertex origin)
         {
             throw new NotImplementedException();
         }

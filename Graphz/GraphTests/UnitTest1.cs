@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Graphz;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -41,6 +43,13 @@ namespace GraphTests
             q.AddEdge(new Edge() { A = Vertex.New(0, 0), B = Vertex.New(0, 1) });
             Assert.IsTrue(q.EdgeCount() == 0);
         }
+        [TestMethod]
+        public void EdgeCountIsTwoAfterAddingTwoWayEdge()
+        {
+            Graph q = new Graphz.Graph();
+            q.AddTwoEdge(new Edge() { A = Vertex.New(0, 0), B = Vertex.New(0, 1) });
+            Assert.IsTrue(q.EdgeCount() == 0);
+        }
 
         [TestMethod]
         public void VertexCountIsTwoafterAddingOneEdge()
@@ -54,7 +63,7 @@ namespace GraphTests
         {
             Graph q = new Graphz.Graph();
             q.AddEdge(new Edge() { A = Vertex.New(0, 0), B = Vertex.New(0, 1) });
-            q.AddEdge(new Edge() { A = Vertex.New(0, 1), B = Vertex.New(1,0) });
+            q.AddEdge(new Edge() { A = Vertex.New(0, 1), B = Vertex.New(0, 0) });
             Assert.IsTrue(q.VertexCount() == 2);
         }
 
@@ -64,7 +73,28 @@ namespace GraphTests
         {
             Graph q = new Graphz.Graph();
             q.AddEdge(new Edge() { A = Vertex.New(0, 0), B = Vertex.New(0, 0) });
-           
+
+        }
+        [TestMethod]
+       
+        public void CanGetEdgesForVertex()
+        {
+            var origin = Vertex.New(0, 0);
+
+            List<Vertex> connectedNodes = new List<Vertex>() {Vertex.New(0, 1)};
+
+
+            Graph q = new Graphz.Graph();
+
+            foreach (Vertex connectedNode in connectedNodes)
+            {
+                q.AddEdge(new Edge() { A = origin, B = connectedNode });
+            }
+
+
+            IEnumerable<Vertex> qq = q.GetEdgesForVertex(origin);
+
+            Assert.IsTrue(connectedNodes.SequenceEqual(qq));
         }
     }
 }

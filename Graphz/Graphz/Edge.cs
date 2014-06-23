@@ -10,5 +10,6 @@ namespace Graphz
     {
         public Vertex A { get; set; }
         public Vertex B { get; set; }
+      
     }
 }
