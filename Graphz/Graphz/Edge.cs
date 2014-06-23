@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Graphz
 {
-    public class Class1
+   public class Edge
     {
+        public Vertex A { get; set; }
+        public Vertex B { get; set; }
     }
 }
